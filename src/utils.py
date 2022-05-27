@@ -7,6 +7,7 @@ from PIL import Image
 import skimage
 from skimage.morphology import disk
 from skimage.filters import rank, threshold_otsu
+import os
 
 """ Filters and binarization function
 """
@@ -237,3 +238,10 @@ def stain_entropy_otsu(img):
     threshold_global_otsu = threshold_otsu(entropy)
     mask = entropy > threshold_global_otsu
     return mask.astype('float')
+
+def recursive_listdir(root_dir):
+  files_list = []
+  for root, dirs, files in os.walk(root_dir):
+    for filename in files:
+        files_list.append(os.path.join(os.path.relpath(root, root_dir), filename))
+  return files_list

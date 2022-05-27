@@ -11,7 +11,7 @@ PROJECT_FOLDER=/data/jpisula/code/patch-extraction
 # WSIs preproc. args
 NUM_PROCS=1
 
-WSIs_FOLDER=/data/jpisula/data/scc-debug-patching
+WSIs_FOLDER=/data/jpisula/data/scc-debug-patching/input
 
 WSI_EXT=.ndpi
 ZOOM_LEVEL_DS=2
@@ -20,9 +20,9 @@ PATCH_FILTER_FUNC=foreground_patches_filter_1
 ZOOM_LEVEL_PATCH=1
 PATCH_SIZE=224
 
-DOWNSAMPLED_IMAGES_FOLDER=/data/jpisula/data/scc-debug-patching
-BINARY_MASKS_FOLDER=/data/jpisula/data/scc-debug-patching
-PATCHES_FOLDER=/data/jpisula/data/scc-debug-patching/patches
+DOWNSAMPLED_IMAGES_FOLDER=/data/jpisula/data/scc-debug-patching/output/downsamples
+BINARY_MASKS_FOLDER=/data/jpisula/data/scc-debug-patching/output/masks
+PATCHES_FOLDER=/data/jpisula/data/scc-debug-patching/output/patches
 
 # pickling args
 PICKLE_IN_CSV=$PROJECT_FOLDER/csvs/tumor_regression_3_as_2.csv
@@ -39,7 +39,7 @@ CSVS_ROOT=$PROJECT_FOLDER/csvs/zoom_1_224_20percent_with_edges
 
 # select pipeline steps
 SVS_TO_JPG=false
-BINARIZE=true
+BINARIZE=false
 EXTRACT_PATCHES=true
 EXTRACT_PATCHES_MACENKO=false
 PICKLE=false
