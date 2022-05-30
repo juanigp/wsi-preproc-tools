@@ -6,10 +6,10 @@
 #SBATCH --job-name=extract_patches
 
 PROJECT_FOLDER=..
-WSIs_FOLDER=/data/jpisula/data/scc-debug-patches/input
-DOWNSAMPLED_IMAGES_FOLDER=/data/jpisula/data/scc-debug-patches/output/downsamples
-BINARY_MASKS_FOLDER=/data/jpisula/data/scc-debug-patches/output/masks
-PATCHES_FOLDER=/data/jpisula/data/scc-debug-patches/output/patches
+WSIs_FOLDER=../input
+DOWNSAMPLED_IMAGES_FOLDER=../output/downsamples
+BINARY_MASKS_FOLDER=../output/masks
+PATCHES_FOLDER=../output/patches
 
 WSI_EXT=.ndpi
 ZOOM_LEVEL_DOWNSAMPLE=2
