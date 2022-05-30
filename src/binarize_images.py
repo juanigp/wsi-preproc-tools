@@ -4,22 +4,8 @@ import multiprocessing
 from functools import partial
 import cv2
 import numpy as np
-import utils
 from utils import recursive_listdir
-
-MODULES_DICT = {}
-def add_to_registry(fun):
-    fun_name = fun.__name__
-    MODULES_DICT[fun_name] = fun
-    return fun
-
-@add_to_registry
-def binarize_1(img):
-    return utils.binarize_1(img)
-
-@add_to_registry
-def stain_entropy_otsu(img):
-    return utils.stain_entropy_otsu(img)
+from registry import BINARIZATION_FUNCTIONS
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -37,7 +23,7 @@ def get_args():
 def pipeline_single_image(fn, args):
     img = cv2.imread(os.path.join(args.i, fn))
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    binarisation_func = MODULES_DICT[args.func]
+    binarisation_func = BINARIZATION_FUNCTIONS[args.func]
     mask = binarisation_func(img)
     new_fn = os.path.join(args.o, '{}.npy'.format(fn).replace(args.extension,''))
     np.save(new_fn, mask)
