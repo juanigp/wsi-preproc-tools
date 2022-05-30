@@ -6,6 +6,7 @@ import numpy as np
 import torch
 import openslide
 from utils import recursive_listdir
+from patch_filter_functions import *
 from registry import PATCH_FILTER_FUNCTIONS
 
 def get_args():

@@ -1,7 +1,7 @@
 # from torchstain import MacenkoNormalizer
 import numpy as np
 import cv2
-from PIL import Image
+# from PIL import Image
 import skimage
 from skimage.morphology import disk
 from skimage.filters import rank, threshold_otsu

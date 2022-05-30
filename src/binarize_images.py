@@ -2,9 +2,11 @@ import argparse
 import os
 import multiprocessing
 from functools import partial
+os.environ["OPENCV_IO_MAX_IMAGE_PIXELS"] = pow(2,40).__str__()
 import cv2
 import numpy as np
 from utils import recursive_listdir
+from binarization_functions import *
 from registry import BINARIZATION_FUNCTIONS
 
 def get_args():

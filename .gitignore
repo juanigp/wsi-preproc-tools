@@ -7,6 +7,8 @@ src/macenko_normalize_folder.py
 src/macenko_normalize_folder_my_algo.py
 src/extract_patches_w_macenko.py
 src/make_pickles_csv.py
+src/make_scc_csv.py
+/csvs/
 bash_scripts/extract_patches_local.sh
 bash_scripts/extract_patches_macenko.sh
 bash_scripts/extract_patches.sh

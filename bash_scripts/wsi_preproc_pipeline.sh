@@ -54,5 +54,6 @@ if [ "$EXTRACT_PATCHES" = true ] ; then
         --zoom_level=$ZOOM_LEVEL_PATCH \
         --patch_size=$PATCH_SIZE \
         --func=$PATCH_FILTER_FUNC \
-        --extension=$WSI_EXT
+        --extension=$WSI_EXT \
+        --num_procs=$NUM_PROCS
 fi
