@@ -7,10 +7,17 @@ def calculate_areas(tensor):
 
 #get the indices of the foreground patches in an unfolded tensor
 #based on area calculation, with content threshold 0.2
-@register_patch_filter_function
-def foreground_patches_filter_1(unfolded_tensor):
+def foreground_patches_filter(unfolded_tensor, content_amount):
     mask_patches_areas = calculate_areas(unfolded_tensor)
     tile_size = unfolded_tensor.shape[-1]
-    area_th = 0.2* tile_size * tile_size #0.05
+    area_th = content_amount * tile_size * tile_size #0.05
     foreground_patches_idcs = mask_patches_areas > area_th
     return foreground_patches_idcs
+
+@register_patch_filter_function
+def foreground_patches_filter_1(unfolded_tensor):
+    return foreground_patches_filter(unfolded_tensor, 0.2)
+
+@register_patch_filter_function
+def foreground_patches_filter_2(unfolded_tensor):
+    return foreground_patches_filter(unfolded_tensor, 0.8)

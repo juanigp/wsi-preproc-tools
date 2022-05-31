@@ -16,3 +16,5 @@ bash_scripts/normalize_local.sh
 bash_scripts/normalize.sh
 bash_scripts/wsi_preproc_pipeline_.sh
 bash_scripts/wsi_preproc_pipeline_old.sh
+bash_scripts/local_extract_tumor.sh
+scope.py

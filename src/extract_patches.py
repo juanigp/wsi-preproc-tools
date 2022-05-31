@@ -39,7 +39,7 @@ def read_wsi_patch(slide, index, tile_size, zoom_level):
     return patch
 
 #save the foreground patches of a wsi
-def save_wsi_foreground_patches(slide_fn, mask_fn, tile_size, zoom_level, output_folder):
+def save_wsi_foreground_patches(slide_fn, mask_fn, tile_size, zoom_level, foreground_filter, output_folder):
     slide = openslide.OpenSlide(slide_fn)
     mask = np.load(mask_fn)
     
@@ -55,8 +55,7 @@ def save_wsi_foreground_patches(slide_fn, mask_fn, tile_size, zoom_level, output
     
     mask_tensor = torch.Tensor(mask)
     mask_tensor_unfolded = get_patches(mask_tensor, tile_size_mask, tile_size_mask)
-    foreground_patches_filter = PATCH_FILTER_FUNCTIONS[args.func]
-    foreground_patches_idcs = foreground_patches_filter(mask_tensor_unfolded)
+    foreground_patches_idcs = foreground_filter(mask_tensor_unfolded)
     for index, is_foreground in np.ndenumerate(foreground_patches_idcs):
         if is_foreground:
             y_bot, x_bot = tile_size_slide * index[0], tile_size_slide * index[1]
@@ -71,7 +70,7 @@ def pipeline_single_image(fn, args):
     slide_output_dir = os.path.join(args.o,fn.replace(args.extension, ''))
     os.makedirs(slide_output_dir, exist_ok = True)
     mask_fn = os.path.join(args.masks_dir, fn.replace(args.extension, '.npy'))
-    save_wsi_foreground_patches(slide_fn, mask_fn, args.patch_size, args.zoom_level, slide_output_dir)
+    save_wsi_foreground_patches(slide_fn, mask_fn, args.patch_size, args.zoom_level, PATCH_FILTER_FUNCTIONS[args.func], slide_output_dir)
     return fn
 
 """Main

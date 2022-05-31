@@ -187,6 +187,21 @@ def stain_entropy_otsu(img):
     mask = entropy > threshold_global_otsu
     return mask.astype('float')
 
+@register_binarization_function
+def get_qupath_default_tumor(img):
+  mask_no_grays = filter_grays(img, output_type = 'float')
+  mask_tumor = (img[:,:,0] > 150 ) *1.
+  mask = mask_no_grays * mask_tumor
+  return mask
+
+@register_binarization_function
+def get_qupath_default_stroma(img):
+  mask_no_grays = filter_grays(img, output_type = 'float')
+  mask_tumor = (img[:,:,1] > 150 ) *1.
+  mask = mask_no_grays * mask_tumor
+  return mask
+
+
 
 ### old binarization functions ###
 # def get_hue_based_mask(img, bool_foreground_mask):

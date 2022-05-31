@@ -8,6 +8,7 @@ import numpy as np
 from utils import recursive_listdir
 from binarization_functions import *
 from registry import BINARIZATION_FUNCTIONS
+# from PIL import Image
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -29,6 +30,8 @@ def pipeline_single_image(fn, args):
     mask = binarisation_func(img)
     new_fn = os.path.join(args.o, '{}.npy'.format(fn).replace(args.extension,''))
     np.save(new_fn, mask)
+    # mask_img = Image.fromarray( (mask * 255).astype(np.uint8) ).convert("L")
+    # mask_img.save('{}.jpg'.format(new_fn))
     return fn
 
 """Main
