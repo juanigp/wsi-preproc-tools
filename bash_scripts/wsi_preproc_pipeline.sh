@@ -10,6 +10,7 @@ WSIs_FOLDER=../input
 DOWNSAMPLED_IMAGES_FOLDER=../output/downsamples
 BINARY_MASKS_FOLDER=../output/masks
 PATCHES_FOLDER=../output/patches
+PICKLES_FOLDER=../output/pickles
 
 WSI_EXT=.ndpi
 ZOOM_LEVEL_DOWNSAMPLE=2
@@ -20,9 +21,10 @@ PATCH_SIZE=224
 NUM_PROCS=10
 
 # select pipeline steps
-SVS_TO_JPG=true
-BINARIZE=true
-EXTRACT_PATCHES=true
+SVS_TO_JPG=false
+BINARIZE=false
+EXTRACT_PATCHES=false
+PICKLE=false
 
 conda activate openslide-env
 
@@ -55,5 +57,13 @@ if [ "$EXTRACT_PATCHES" = true ] ; then
         --patch_size=$PATCH_SIZE \
         --func=$PATCH_FILTER_FUNC \
         --extension=$WSI_EXT \
+        --num_procs=$NUM_PROCS
+fi
+
+if [ "$PICKLE" = true ] ; then
+    echo "pickling patches"
+    python3 $PROJECT_FOLDER/src/pickle_patches.py \
+        --i=$PATCHES_FOLDER \
+        --o=$PICKLES_FOLDER \
         --num_procs=$NUM_PROCS
 fi

@@ -15,3 +15,4 @@ bash_scripts/extract_patches.sh
 bash_scripts/normalize_local.sh
 bash_scripts/normalize.sh
 bash_scripts/wsi_preproc_pipeline_.sh
+bash_scripts/wsi_preproc_pipeline_old.sh
