@@ -24,11 +24,14 @@ def get_args():
 """Complete pipeline for a single image
 """
 def pipeline_single_image(fn, args):
+    new_fn = os.path.join(args.o, '{}.npy'.format(fn).replace(args.extension,''))
+    if os.path.exists(new_fn):
+        return fn
     img = cv2.imread(os.path.join(args.i, fn))
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     binarisation_func = BINARIZATION_FUNCTIONS[args.func]
     mask = binarisation_func(img)
-    new_fn = os.path.join(args.o, '{}.npy'.format(fn).replace(args.extension,''))
+    
     np.save(new_fn, mask)
     # mask_img = Image.fromarray( (mask * 255).astype(np.uint8) ).convert("L")
     # mask_img.save('{}.jpg'.format(new_fn))

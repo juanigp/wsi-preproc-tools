@@ -17,11 +17,13 @@ def get_args():
     return parser.parse_args()
 
 def pipeline_single_image(fn, args):
+    rgb_img_path = os.path.join(args.o,fn.replace(args.extension,'.jpg'))
+    if os.path.exists(rgb_img_path):
+        return fn
     slide = openslide.OpenSlide(os.path.join(args.i, fn))
     zoom_dims = slide.level_dimensions[args.zoom_level]
     rgba_img = slide.read_region((0,0),args.zoom_level,zoom_dims)
     rgb_img = rgba_img.convert('RGB')
-    rgb_img_path = os.path.join(args.o,fn.replace(args.extension,'.jpg'))
     rgb_img.save(rgb_img_path)
     return fn
 

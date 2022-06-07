@@ -66,8 +66,10 @@ def save_wsi_foreground_patches(slide_fn, mask_fn, tile_size, zoom_level, foregr
 """Complete pipeline for a single image
 """
 def pipeline_single_image(fn, args):
-    slide_fn = os.path.join(args.slides_dir, fn)
     slide_output_dir = os.path.join(args.o,fn.replace(args.extension, ''))
+    if os.path.exists(slide_output_dir):
+        return fn
+    slide_fn = os.path.join(args.slides_dir, fn)
     os.makedirs(slide_output_dir, exist_ok = True)
     mask_fn = os.path.join(args.masks_dir, fn.replace(args.extension, '.npy'))
     save_wsi_foreground_patches(slide_fn, mask_fn, args.patch_size, args.zoom_level, PATCH_FILTER_FUNCTIONS[args.func], slide_output_dir)

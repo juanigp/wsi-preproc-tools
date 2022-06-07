@@ -32,6 +32,10 @@ def pipeline_single_image(fn, args):
         
         return torch.tensor(edge_index).t().contiguous()
 
+    pickle_fn = os.path.join(args.o,'{}.pickle'.format(fn)) 
+    if os.path.exists(pickle_fn):
+        return fn
+        
     patches_folder = os.path.join(args.i, fn)
     patches_folder_files = os.listdir(patches_folder)
     patches_idcs = list(map(lambda x: x.split('.')[0], patches_folder_files))
@@ -41,7 +45,7 @@ def pipeline_single_image(fn, args):
     patches_tensors_list = list(map(lambda x: transforms.ToTensor()(Image.open(os.path.join(patches_folder, x)).convert('RGB')), patches_folder_files))
     patches_tensors = torch.stack(patches_tensors_list)
     to_pickle = (patches_tensors, edge_index)
-    pickle_fn = os.path.join(args.o,'{}.pickle'.format(fn))
+    
     with open(pickle_fn, 'wb') as handle:
         pickle.dump(to_pickle, handle)
     return fn
